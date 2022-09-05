@@ -1,31 +1,42 @@
-const exphbs = require('express-handlebars');
-const routes = require('./routes');
-const hbs = exphbs.create({});
-const sequelize = require('./config/connection');
-
+const exphbs = require("express-handlebars");
+const routes = require("./routes");
+const helpers = require("./utils/helpers");
+const hbs = exphbs.create({ helpers });
+const sequelize = require("./config/connection");
+const path = require("path");
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 //Load the code for express into the express variable.
-const express = require ('express');
+const express = require("express");
+
+const sess = {
+  secret: "Super secret secret",
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
 // Initialize (create) the express object.
 const app = express();
 const PORT = process.env.SERVER_PORT || 3001;
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine("handlebars", hbs.engine);
+app.set("view engine", "handlebars");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static("public"));
+app.use(session(sess));
 
 // turn on routes
 app.use(routes);
 
-app.get('/',(req,res)=>{
-    res.send('Hello!');
-});
-
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
-    //One method/function that starts the server 
-    app.listen(PORT, () => console.log('Now listening on port '+ PORT));
-  });
+  //One method/function that starts the server
+  app.listen(PORT, () => console.log("Now listening on port " + PORT));
+});

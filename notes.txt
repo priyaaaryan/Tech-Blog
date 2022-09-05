@@ -1,0 +1,15 @@
+CREATE TABLE Users (
+    id int NOT NULL AUTO_INCREMENT,
+    Usersname varchar(255) NOT NULL,
+    Password varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO Users (Usersname, Password)
+VALUES ('indu', '12356789');
+
+ALTER TABLE Users RENAME COLUMN Usersname TO Username;
+
+mysql username aaryan password abc123  - access my sql
+
+--13.3.4 is where we are
