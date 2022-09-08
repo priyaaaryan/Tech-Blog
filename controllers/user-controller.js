@@ -98,12 +98,13 @@ module.exports = {
       },
     }).then((dbUserData) => {
       if (!dbUserData) {
+        res.setheader;
         res.status(400).json({ message: "No user with that name!" });
         return;
       }
 
       //res.json({ user: dbUserData });
-
+      console.log("We GOT HERE");
       // Verify user
       const isValidPassword = dbUserData.checkPassword(req.body.password);
       if (!isValidPassword) {
@@ -111,7 +112,13 @@ module.exports = {
         return;
       }
 
-      res.json({ user: dbUserData, message: "You are now logged in!" });
+      req.session.save(() => {
+        req.session.user_id = dbUserData.id;
+        req.session.username = dbUserData.username;
+        req.session.loggedIn = true;
+
+        res.json({ user: dbUserData, message: "You are now logged in!" });
+      });
     });
   },
 };

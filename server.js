@@ -34,9 +34,14 @@ app.use(session(sess));
 
 // turn on routes
 app.use(routes);
+const HOST = "0.0.0.0";
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {
   //One method/function that starts the server
-  app.listen(PORT, () => console.log("Now listening on port " + PORT));
+  app.listen(PORT, HOST, () => console.log("Now listening on port " + PORT));
 });
+
+// // Added to support local host to fetch the api//
+// import dns from "node:dns";
+// dns.setDefaultResultOrder("ipv4first");
