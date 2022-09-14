@@ -22,4 +22,6 @@ router.delete("/:id", userController.deleteUser);
 
 router.post("/login", userController.loginUser);
 
+router.all("/logout", userController.logoutUser);
+
 module.exports = router;

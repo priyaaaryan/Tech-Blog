@@ -37,6 +37,7 @@ module.exports = {
     User.create({
       username: req.body.username,
       password: req.body.password,
+      email: req.body.email,
     })
       .then((dbUserData) => {
         res.json(dbUserData);
@@ -120,5 +121,15 @@ module.exports = {
         res.json({ user: dbUserData, message: "You are now logged in!" });
       });
     });
+  },
+
+  logoutUser: (req, res) => {
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
   },
 };

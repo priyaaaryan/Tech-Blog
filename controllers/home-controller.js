@@ -43,7 +43,7 @@ module.exports = {
       res.redirect("/");
       return;
     }
-
+    console.log(">>>>>not logged in");
     res.render("login");
   },
 
