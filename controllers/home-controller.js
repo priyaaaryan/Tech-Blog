@@ -7,8 +7,11 @@ module.exports = {
     })
       .then((dbPostData) => {
         const posts = dbPostData.map((post) => post.get({ plain: true }));
-
-        res.render("homepage", { posts });
+        console.log(JSON.stringify(posts));
+        res.render("homepage", {
+          posts,
+          loggedIn: req.session.loggedIn ? true : false,
+        });
       })
       .catch((err) => {
         res.status(500).json(err);

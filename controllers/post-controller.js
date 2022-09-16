@@ -65,6 +65,7 @@ module.exports = {
           res.status(404).json({ message: "No post found with this id" });
           return;
         }
+        console.log("AHAHAHAHAHAHAHAHAHAH!" + dbPostData);
         res.json(dbPostData);
       })
       .catch((err) => {
