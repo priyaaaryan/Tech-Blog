@@ -22,7 +22,7 @@ const sess = {
 
 // Initialize (create) the express object.
 const app = express();
-const PORT = process.env.SERVER_PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
