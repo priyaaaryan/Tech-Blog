@@ -5,31 +5,34 @@
   </h2>
   <form class="edit-post-form">
     <div>
-      <input name="post-title" type="text" value="{{post.title}}" />
-      <span>({{format_url post.post_url}})</span>
+      <label for="post-title" class="form-label">Title</label>
+      <textarea wrap="hard" name="post-title" class="form-input">{{post.title}}</textarea>
+      <label for="content" class="form-label">content</label>
+      <textarea wrap="hard" name="content"class="form-input">{{post.content}}</textarea>
     </div>
     <div>
-         by you on {{format_date post.createdAt}}
-      |
+         
+      
       <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
     </div>
-    <button type="submit">Save post</button>
+    <button type="submit">Update post</button>
     <button type="button" class="delete-post-btn">Delete post</button>
   </form>
 </article>
 
-<form class="comment-form">
+{{!-- <form class="comment-form">
   <div>
-    <textarea name="comment-body"></textarea>
+    <label for="comment" class="form-label">Add a Comment</label>
+    <textarea name="comment-body" class="form-input"></textarea>
   </div>
 
   <div>
     <button type="submit">add comment</button>
   </div>
-</form>
+</form> --}}
 
 {{> comments post.comments}}
 
 <script src="/javascript/edit-post.js"></script>
 <script src="/javascript/delete-post.js"></script>
-<script src="/javascript/comment.js"></script>
+{{!-- <script src="/javascript/comment.js"></script> --}}

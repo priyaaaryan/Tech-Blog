@@ -4,7 +4,7 @@ module.exports = {
   getAllUserPosts: (req, res) => {
     console.log("======================");
     Post.findAll({
-      attributes: ["id", "post_url", "title", "created_at"],
+      attributes: ["id", "content", "title", "created_at"],
       include: [
         {
           model: Comment,
@@ -38,7 +38,7 @@ module.exports = {
       where: {
         id: req.params.id,
       },
-      attributes: ["id", "post_url", "title", "created_at"],
+      attributes: ["id", "content", "title", "created_at"],
       include: [
         {
           model: Comment,
@@ -77,7 +77,7 @@ module.exports = {
   createPost: (req, res) => {
     Post.create({
       title: req.body.title,
-      post_url: req.body.post_url,
+      content: req.body.content,
       user_id: req.session.user_id,
     })
       .then((dbPostData) => res.json(dbPostData))
@@ -91,6 +91,7 @@ module.exports = {
     Post.update(
       {
         title: req.body.title,
+        content: req.body.content,
       },
       {
         where: {
@@ -98,7 +99,9 @@ module.exports = {
         },
       }
     )
+
       .then((dbPostData) => {
+        console.log("update post");
         if (!dbPostData) {
           res.status(404).json({ message: "No post found with this id" });
           return;

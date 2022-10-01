@@ -9,7 +9,7 @@ CREATE TABLE Users (
 CREATE TABLE POSTS (
     id int NOT NULL AUTO_INCREMENT,
     Title varchar(255) NOT NULL,
-    post_url varchar(255) NOT NULL,
+    content varchar(255) NOT NULL,
     user_id int,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
